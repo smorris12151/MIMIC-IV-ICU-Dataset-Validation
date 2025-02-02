@@ -1,7 +1,9 @@
-Project Name: ICU
+Project Name: ICU 
+\
 Team Members: Sam Morris and Harry Ren
+\
 Team Lead: Sam Morris
-
+\
 Below are the details as pulled from the project listing:
 # ICU
 
