@@ -1,0 +1,10 @@
+name: eda_env
+
+dependencies:
+  - ipython
+  - matplotlib
+  - pandas
+  - python
+  - scikit-learn
+  - wget
+  - seaborn
