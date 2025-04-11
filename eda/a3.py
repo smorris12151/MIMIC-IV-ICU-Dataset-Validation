@@ -2,11 +2,21 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import argparse
+#code below parses arg from makefile to determine which dataset to use
+parser = argparse.ArgumentParser()
+parser.add_argument('--variable', type=int, default=0)
+args = parser.parse_args()
+print(args.variable)
 
+if args.variable == 1:
+    print("success")
+    chartevents_path = "filtered_data/hyponatremia_patients.csv"
+else:
+    chartevents_path = "icu/chartevents.csv"
 serum_sodium_itemids = [220645, 226534, 228389, 228390]
 
 # read the first 100M rows from chartevents including charttime
-chartevents_path = "icu/chartevents.csv"
 sodium_ts = pd.read_csv(chartevents_path, 
                         nrows=100000000, 
                         usecols=['subject_id', 'charttime', 'itemid', 'valuenum'])

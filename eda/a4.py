@@ -1,13 +1,25 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import argparse
+#code below parses arg from makefile to determine which dataset to use
+parser = argparse.ArgumentParser()
+parser.add_argument('--variable', type=int, default=0)
+args = parser.parse_args()
+print(args.variable)
+
+if args.variable == 1:
+    print("success")
+    chartevents_path = "filtered_data/hyponatremia_patients.csv"
+else:
+    chartevents_path = "icu/chartevents.csv"
+
 
 # Specify itemids for serum sodium (MIMIC-IV known itemids)
 serum_sodium_itemids = [220645, 226534, 228389, 228390]
 print(f"Using serum sodium itemids: {serum_sodium_itemids}")
 
 # Read the first 100M rows from chartevents.csv, focusing on relevant columns
-chartevents_path = "icu/chartevents.csv"
 df = pd.read_csv(chartevents_path, nrows=100000000, usecols=['subject_id', 'itemid', 'valuenum'])
 
 # Filter for serum sodium measurements and plausible values

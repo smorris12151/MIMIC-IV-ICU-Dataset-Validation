@@ -1,6 +1,17 @@
 import pandas as pd
+import argparse
+#code below parses arg from makefile to determine which dataset to use
+parser = argparse.ArgumentParser()
+parser.add_argument('--variable', type=int, default=0)
+args = parser.parse_args()
+print(args.variable)
 
-chartevents_path = "icu/chartevents.csv"
+if args.variable == 1:
+    print("success")
+    chartevents_path = "filtered_data/hyponatremia_patients.csv"
+else:
+    chartevents_path = "icu/chartevents.csv"
+
 df = pd.read_csv(chartevents_path, nrows=100000000, usecols=['subject_id', 'itemid', 'valuenum'])
 # Load d_items to identify itemids for the clinical variables
 d_items_path = "icu/d_items.csv"

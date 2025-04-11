@@ -1,11 +1,21 @@
 import pandas as pd
+import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--variable', type=int, default=0)
+args = parser.parse_args()
+print(args.variable)
 # Serum sodium itemids: Sodium (serum), Sodium (whole blood), and soft versions
 serum_sodium_itemids = [220645, 226534, 228389, 228390]
 print(f"Using serum sodium itemids: {serum_sodium_itemids}")
 
 # Read the first 100 million rows from chartevents.csv
-chartevents_path = "icu/chartevents.csv"
+if args.variable == 1:
+    print("success")
+    chartevents_path = "filtered_data/hyponatremia_patients.csv"
+else:
+    chartevents_path = "icu/chartevents.csv"
+
 df = pd.read_csv(chartevents_path, nrows=100000000, usecols=['subject_id', 'itemid', 'valuenum'])
 
 # Filter for sodium measurements
@@ -28,8 +38,8 @@ print(f"Total patients with hyponatremia (Na < 135 mEq/L): {len(hyponatremia_pat
 print(f"Total patients with severe hyponatremia (Na < 120 mEq/L): {len(severe_hyponatremia_patients)}")
 
 # Calculate percentage of ICU patients with hyponatremia
-icustays = pd.read_csv("icu/icustays.csv")
-total_unique_patients = icustays['subject_id'].nunique()
+#icustays = pd.read_csv("icu/icustays.csv")
+#total_unique_patients = icustays['subject_id'].nunique()
 
-print(f"\nPercentage of ICU patients with hyponatremia: {len(hyponatremia_patients) / total_unique_patients * 100:.2f}%")
-print(f"Percentage of ICU patients with severe hyponatremia: {len(severe_hyponatremia_patients) / total_unique_patients * 100:.2f}%")
+#print(f"\nPercentage of ICU patients with hyponatremia: {len(hyponatremia_patients) / total_unique_patients * 100:.2f}%")
+#print(f"Percentage of ICU patients with severe hyponatremia: {len(severe_hyponatremia_patients) / total_unique_patients * 100:.2f}%")
