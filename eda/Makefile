@@ -14,7 +14,7 @@ unzip_demo_files: physionet.org
 #Remove unneeded files
 	rm -r physionet.org
 
-hn_only: 
+hn_filter: 
 #download and unzip total demo dataset
 	make download_demo_files
 	make unzip_demo_files
@@ -23,7 +23,6 @@ hn_only:
 #import and run 
 	conda run -n eda_env python3 -c "from tools.hyponatremia_filter import hn_filter; hn_filter('icu/chartevents.csv')"
 	mv hyponatremia_patients.csv filtered_data
-	rm -r icu
 
 
 ################ Total ICU Dataset Make Commands ################
@@ -55,7 +54,7 @@ run_demo_analysis:
 
 run_filtered_analysis:
 	var=1
-	make hn_only
+	make hn_filter
 	make A1 var=1
 	make A2 var=1
 	make A3 var=1

@@ -3,7 +3,7 @@ import pandas as pd
 
 
 def hn_filter(csvPath):
-    df = pd.read_csv(csvPath, usecols=['subject_id', 'itemid', 'valuenum'])
+    df = pd.read_csv(csvPath)
     
     serum_sodium_itemids = [220645, 226534, 228389, 228390]
     hn_df = df[df['itemid'].isin(serum_sodium_itemids)]

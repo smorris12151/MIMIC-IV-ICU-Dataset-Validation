@@ -12,7 +12,7 @@ if args.variable == 1:
 else:
     chartevents_path = "icu/chartevents.csv"
 
-df = pd.read_csv(chartevents_path, nrows=100000000, usecols=['subject_id', 'itemid', 'valuenum'])
+df = pd.read_csv(chartevents_path)
 # Load d_items to identify itemids for the clinical variables
 d_items_path = "icu/d_items.csv"
 d_items = pd.read_csv(d_items_path)
@@ -21,6 +21,7 @@ variable_itemids = {
     "Serum Potassium": [220640, 227442],
     "Patient Weight": [224639, 225124, 226512, 226531, 226740, 226741, 226742, 226846, 227854],
     "Urine Output": [227519],
+    "Urine Sodium": [],
     "Hypertonic Saline (3% NaCl)": [225161],
 }
 print("Using variable_itemids:")
