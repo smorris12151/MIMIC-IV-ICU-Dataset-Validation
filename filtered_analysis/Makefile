@@ -29,5 +29,4 @@ clean:
 	rm -r filtered_data
 	rm -r icu
 	rm -f *.tsv
-	rm -f *.png
  
