@@ -1,7 +1,9 @@
 import pandas as pd
-#note: hyponatremia shortened to hn in following script for brevity's sake
-
-
+'''
+note: hyponatremia shortened to hn in following script for brevity's sake
+input: path to a csv
+outputs: an array of patient ids corresponding to hyponatremic patients
+'''
 def hn_filter(csvPath):
     df = pd.read_csv(csvPath)
     
@@ -10,6 +12,5 @@ def hn_filter(csvPath):
     hn_df = hn_df[hn_df['valuenum'].notna() &
                       (hn_df['valuenum'] > 80) &
                       (hn_df['valuenum'] < 180)]
-    
-    hn_csv = hn_df.to_csv('hyponatremia_patients.csv', index = False)
-    return hn_csv
+    patients = hn_df["subject_id"].unique().tolist()
+    return patients
