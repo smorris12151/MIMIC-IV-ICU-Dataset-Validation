@@ -14,7 +14,7 @@ unzip_demo_files: physionet.org
 #Remove unneeded files
 	rm -r physionet.org
 
-hn_filter: 
+build_hn_dataset: 
 #download and unzip total demo dataset
 	make download_demo_files
 	make unzip_demo_files
