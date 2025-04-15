@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from tools import hyponatremia_filter 
+import hyponatremia_filter 
 
 '''
 The goal of this tool is to filter out hyponatremic patients from our icu dataset, and colate important variables in an easily managed format
