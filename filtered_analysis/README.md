@@ -1,11 +1,22 @@
 # Filtered Analysis
-## TLDR:
-### Filter icu dataset for hyponatremic patients by using command ```make build_hn_dataset ```
+# TLDR:
+##  Step1:
+### Download and filter sample icu dataset for hyponatremic patients by using command ```make build_hn_dataset ```
+## Step 2:
 ### Build patient specific datasets by using command ```make build_patient_dataset SUBJECT_ID=1005817``` 
+## Step 3:
 ### Remove all files / conda environments with command ```make clean```
 
 
 This directory contains tools for filtering the mimic iv icu dataset (specifically, this is built for the demo dataset, but the full dataset will work just as well.)
+
+Demo dataset found here:
+[MIMIC-IV Clinical Database Demo](https://physionet.org/content/mimic-iv-demo/2.2/#files-panel)
+
+Full dataset found here:
+[MIMIC-IV](https://physionet.org/content/mimiciv/3.1/)
+(Note: Credentialed Access Required)
+
 Below are further details on how this works, as well a list of other subject_ids to build patient specific datasets from this demo database.
 
 ## Purpose and Organization of this Pre-Processing

@@ -11,6 +11,8 @@ I wouldn't bother runnning this, as it was just to help me think through how I w
 df = pd.read_csv("filtered_data/hn_preprocessed_data.csv", index_col=["subject_id", "chartstart_time", "itemid"])
 
 #Generating a list of unique subject ids for display in readme
-print(df.index.get_level_values("subject_id").unique())
+#print(df.index.get_level_values("subject_id").unique())
 
 #get_patient_data(df, 10005817)
+
+print(df)
