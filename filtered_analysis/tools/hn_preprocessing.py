@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import hyponatremia_filter 
+from datetime import datetime
 
 '''
 The goal of this tool is to filter out hyponatremic patients from our icu dataset, and colate important variables in an easily managed format
@@ -47,19 +48,22 @@ total_rateuoms = []
 #note the iterative prototype below; this is undoubtedly not the most computationally efficient methodd. Future builds should ustilize pandas ufuncs for quicker computation.
 def array_builder(df):
     for index, row in df.iterrows():
-        total_subject_ids.append(row["subject_id"])
+        total_subject_ids.append(int(row["subject_id"]))
 
         if("charttime" in df.columns):
-            total_chartstarttimes.append(row["charttime"])
+            chartstarttime = datetime.strptime(row["charttime"], "%Y-%m-%d %H:%M:%S")
+            endtime = chartstarttime
+            total_chartstarttimes.append(chartstarttime)
         elif("starttime" in df.columns):
-            total_chartstarttimes.append(row["starttime"])
-        else:
-            total_chartstarttimes.append("")
+            chartstarttime = datetime.strptime(row["starttime"], "%Y-%m-%d %H:%M:%S")
+            endtime = chartstarttime
+            total_chartstarttimes.append(chartstarttime)
 
         if("endtime" in df.columns):
-            total_endtimes.append(row["endtime"])
-        else:
-            total_endtimes.append(0)
+            endtime = datetime.strptime(row["endtime"], "%Y-%m-%d %H:%M:%S")
+        
+        total_endtimes.append(endtime)
+        total_timespans.append(endtime - chartstarttime)
 
         if("linkorderid" in df.columns):
             total_linkorderids.append(row["linkorderid"])
@@ -88,7 +92,7 @@ def array_builder(df):
             total_rateuoms.append(row["rateuom"])
         else:
             total_rates.append(0)
-            total_rateuoms.append("")
+            total_rateuoms.append(" ")
 
 
 #populating our empty arrays:
@@ -104,6 +108,7 @@ df = pd.DataFrame({
     "subject_id": total_subject_ids,
     "chartstart_time": total_chartstarttimes,
     "end_time": total_endtimes,
+    "time_spans": total_timespans,
     "link_orderid": total_linkorderids,
     "orderid": total_orderids,
     "itemid": total_itemids,
@@ -113,6 +118,10 @@ df = pd.DataFrame({
     "rate": total_rates,
     "rate_unit": total_rateuoms
 })
+df["time_spans"] = pd.to_timedelta(df["time_spans"])
+df = df.set_index(["subject_id", "chartstart_time", "itemid"])
+
+
 #saving this dataframe to a csv for future processing
-df.to_csv("filtered_data/hn_preprocessed_data.csv", index=False)
+df.to_csv("filtered_data/hn_preprocessed_data.csv", index=True)
 
