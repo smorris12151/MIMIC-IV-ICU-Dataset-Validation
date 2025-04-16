@@ -1,17 +1,16 @@
-download_files: environment.yml
+################ Demo Dataset EDA Make Commands ################
+
+download_demo_files: environment.yml
 #build conda env:
 	conda env create -f environment.yml
 #download fileset from Mimic iv website (for size's sake, this is using the demo dataset):
 	conda run -n eda_env wget -r -N -c -np https://physionet.org/files/mimic-iv-demo/2.2/
 #move uncompressed icu and hosp files to root directory
 	mv physionet.org/files/mimic-iv-demo/2.2/icu .
-	mv physionet.org/files/mimic-iv-demo/2.2/hosp .
 
-
-unzip_files: physionet.org
+unzip_demo_files: physionet.org
 #unzip files
 	gunzip icu/*.csv.gz
-	gunzip hosp/*.csv.gz
 #Remove unneeded files
 	rm -r physionet.org
 
@@ -25,17 +24,18 @@ A3:
 A4: 
 	conda run -n eda_env python3 a4.py
 
-all:
-	make download_files
-	make unzip_files
-	make A1
+
+run_eda:
+	make download_demo_files
+	make unzip_demo_files
+	make A1 
 	make A2
 	make A3
 	make A4
 
-clear:
+clean:
+	conda remove --name eda_env --all   
 	rm -r icu
-	rm -r hosp
 	rm -f *.tsv
 	rm -f *.png
-	conda remove --name eda_env --all    
+ 
