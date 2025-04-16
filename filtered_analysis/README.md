@@ -7,7 +7,7 @@
 ## Step 3:
 ### Remove all files / conda environments with command ```make clean```
 
-
+## What is this repo?
 This directory contains tools for filtering the mimic iv icu dataset (specifically, this is built for the demo dataset, but the full dataset will work just as well.)
 
 Demo dataset found here:
