@@ -3,14 +3,12 @@
 
 # Note:
 
-Use command ```make all``` to build environment, download/unzip mimic iv demo dataset, and run all analyses. This will populate the images in this doc.
+Use command ```make run_eda``` to build environment, download/unzip mimic iv demo dataset, and run all analyses. This will populate the images in this doc.
 
-Upon running `make all`, your file heirarchy should look like this:
-![Configured file heirarchy of eda directory](/eda_directory.png)
 
 Also note, for the sake of file downloads, the dataset being used here is the smaller mimic iv DEMO dataset - ergo, the generated diagrams here do not perfectly match those results we found with the proper dataset.. This is an easy swap, assuming you have the original dataset in place of the demo (literally just swap them out in the root directory of this repo.)
 
-To remove the built environment / files / etc, run `make clear`
+To remove the built environment / files / etc, run `make clean`
 
 # A1: Hyponatremia Patient Cohort Identification:
 
@@ -42,7 +40,7 @@ The analysis reveals that **serum sodium, serum potassium, and patient weight** 
 # A3: Sodium Correction Rate
 In this analysis, we calculate the **rate of change** in serum sodium over time for ICU patients (using the first 100 M rows from the MIMIC-IV `chartevents` table). We define **rapid correction** as >10 mEq/L in 24 hours (~0.42 mEq/L per hour), a threshold recommended to reduce the risk of osmotic demyelination syndrome (see [Tandukar S, Sterns RH, Rondon-Berrios H. Osmotic Demyelination Syndrome following Correction of Hyponatremia by ≤10 mEq/L per Day](https://pmc.ncbi.nlm.nih.gov/articles/PMC8786124/)). We then plot a histogram of sodium correction rates between 0 and 3 mEq/L per hour to see how often corrections exceed this safety threshold.
 
-![Histogram of Sodium Correction Rates (0-3 mEq/L/hr)](/A3_Histogram.png)
+![Histogram of Sodium Correction Rates (0-3 mEq/L/hr)](A3_Histogram.png)
 
 ### Conclusion
 
@@ -53,7 +51,7 @@ From the histogram, we see that while many patients experience slow-to-moderate 
 # A4: Relationship Between Serum Sodium Levels and ICU Length of Stay:
 In this analysis, we load **serum sodium measurements** from the first 100 M rows of the MIMIC-IV `chartevents` table, merge them with **ICU length of stay (LOS) data** from `icustays`, and visualize their relationship. We first filter sodium values to valid `itemid`'s within a plausible range (80–180 mEq/L), then merge these measurements with each patient's LOS via a simple join on `subject_id`. Finally, we plot a scatterplot of sodium (x-axis) vs. LOS (y-axis) to identify potential patterns.
 
-![Scatterplot: Serum Sodium vs ICU Length of Stay](/A4_Scatterplot.png)
+![Scatterplot: Serum Sodium vs ICU Length of Stay](A4_Scatterplot.png)
 
 
 ### Conclusion
