@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from datetime import datetime
-from tools.get_patient_data import get_patient_data
+#from tools.get_patient_data import get_patient_data
 
 '''
 This python script is just where I've been experimenting with multi indexing of the pre-processed data and testing different tools
@@ -10,6 +10,7 @@ I wouldn't bother runnning this, as it was just to help me think through how I w
 
 df = pd.read_csv("filtered_data/hn_preprocessed_data.csv", index_col=["subject_id", "chartstart_time", "itemid"])
 
+#Generating a list of unique subject ids for display in readme
+print(df.index.get_level_values("subject_id").unique())
 
-print(df.index)
-get_patient_data(df, 10005817)
+#get_patient_data(df, 10005817)
